@@ -1,0 +1,16 @@
+from app.db import get_db
+
+
+def get_all_games():
+    """Recupera tutti i giochi dalla tabella `giochi`.
+
+    Restituisce una lista di dizionari con le colonne principali.
+    """
+    db = get_db()
+    query = """
+        SELECT giochi, nome, numero_giocatori_massimo, durata_media, categoria
+        FROM giochi
+        ORDER BY nome
+    """
+    games = db.execute(query).fetchall()
+    return [dict(g) for g in games]
